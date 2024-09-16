@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/references/hematology.dart';
+import '../components/references/heart-rate.dart';
 
 class ReferencesPage extends StatelessWidget {
   const ReferencesPage({super.key});
@@ -56,23 +57,24 @@ class TabBarExample extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             Center(
-              child: UserTable(),
+              child: Hematology(),
             ),
             Center(
-              child: UserTable(),
+              child: HeartRate(),
             ),
             Center(
-              child: UserTable(),
+              child: Hematology(),
             ),
             Center(
-              child: UserTable(),
+              child: Hematology(),
             ),
             Center(
-              child: UserTable(),
+              child: Hematology(),
             ),
             Center(
-              child: UserTable(),
+              child: Hematology(),
             ),
+            // const SizedBox(height: 40),
           ],
         ),
       ),
@@ -80,8 +82,8 @@ class TabBarExample extends StatelessWidget {
   }
 }
 
-class UserTable extends StatelessWidget {
-  UserTable({super.key});
+class Hematology extends StatelessWidget {
+  Hematology({super.key});
   final datas = getHematologyData();
 
   @override
@@ -89,6 +91,7 @@ class UserTable extends StatelessWidget {
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
           scrollDirection: Axis.vertical,
           child: DataTable(
             columns: const [
@@ -111,6 +114,33 @@ class UserTable extends StatelessWidget {
                 DataCell(Text(user.cow)),
                 DataCell(Text(user.horse)),
                 DataCell(Text(user.pig)),
+              ]);
+            }).toList(),
+          ),
+        ));
+  }
+}
+
+class HeartRate extends StatelessWidget {
+  HeartRate({super.key});
+  final datas = getHeartRateData();
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+          scrollDirection: Axis.vertical,
+          child: DataTable(
+            columns: const [
+              DataColumn(label: Text('Species')),
+              DataColumn(label: Text('bpm (range)')),
+            ],
+            rows: datas.map((user) {
+              return DataRow(cells: [
+                DataCell(Text(user.specie)),
+                DataCell(Text(user.bpm)),
               ]);
             }).toList(),
           ),

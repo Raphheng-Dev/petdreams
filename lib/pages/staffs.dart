@@ -51,6 +51,12 @@ class _StaffsPageState extends State<StaffsPage> {
           DataColumn(label: Text('Name')),
           DataColumn(label: Text('Age')),
           DataColumn(label: Text('Email')),
+          // DataColumn(label: Text('Phone')),
+          // DataColumn(label: Text('Next of kin')),
+          // DataColumn(label: Text('Address')),
+          // DataColumn(label: Text('Email')),
+          // DataColumn(label: Text('Email')),
+          // DataColumn(label: Text('Email')),
         ],
         rows: StaffData.staffs.map((staff) {
           return DataRow(cells: [
