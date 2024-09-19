@@ -36,37 +36,67 @@ class _StaffsPageState extends State<StaffsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('All Staffs'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            tooltip: 'Add Staff',
-            onPressed: _showAddStaffDialog,
-          ),
-        ],
-      ),
-      body: DataTable(
-        columns: const [
-          DataColumn(label: Text('Name')),
-          DataColumn(label: Text('Age')),
-          DataColumn(label: Text('Email')),
-          // DataColumn(label: Text('Phone')),
-          // DataColumn(label: Text('Next of kin')),
-          // DataColumn(label: Text('Address')),
-          // DataColumn(label: Text('Email')),
-          // DataColumn(label: Text('Email')),
-          // DataColumn(label: Text('Email')),
-        ],
-        rows: StaffData.staffs.map((staff) {
-          return DataRow(cells: [
-            DataCell(Text(staff.name)),
-            DataCell(Text(staff.age.toString())),
-            DataCell(Text(staff.email)),
-          ]);
-        }).toList(),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('All Staffs'),
+          // actions: [
+          //   IconButton(
+          //     icon: const Icon(Icons.add),
+          //     tooltip: 'Add Staff',
+          //     onPressed: _showAddStaffDialog,
+          //   ),
+          // ],
+        ),
+        body: Stack(
+          children: [
+            ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context)
+                      .size
+                      .height, // Minimum height to 100% of viewport height
+                  minWidth: MediaQuery.of(context)
+                      .size
+                      .width, // 100% of viewport width
+                ),
+                // 100% of viewport height
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    columns: const [
+                      DataColumn(label: Text('Name')),
+                      DataColumn(label: Text('Age')),
+                      DataColumn(label: Text('Email')),
+                      DataColumn(label: Text('Phone')),
+                      DataColumn(label: Text('Next of kin')),
+                      DataColumn(label: Text('Address')),
+                      DataColumn(label: Text('Gender')),
+                      DataColumn(label: Text('Role')),
+                      // DataColumn(label: Text('')),
+                    ],
+                    rows: StaffData.staffs.map((staff) {
+                      return DataRow(cells: [
+                        DataCell(Text(staff.name)),
+                        DataCell(Text(staff.age.toString())),
+                        DataCell(Text(staff.phone as String)),
+                        DataCell(Text(staff.nextOfKin)),
+                        DataCell(Text(staff.address)),
+                        DataCell(Text(staff.gender)),
+                        DataCell(Text(staff.role)),
+                      ]);
+                    }).toList(),
+                  ),
+                )),
+            // ),
+            Positioned(
+              right: 20,
+              bottom: 26,
+              child: FloatingActionButton(
+                onPressed: _showAddStaffDialog,
+                tooltip: 'New Case',
+                child: const Icon(Icons.add),
+              ),
+            ),
+          ],
+        ));
   }
 }
 
@@ -85,10 +115,23 @@ class _AddStaffFormState extends State<AddStaffForm> {
   String _name = '';
   int _age = 0;
   String _email = '';
+  int _phone = 0;
+  String _nextOfKin = '';
+  String _address = '';
+  String _gender = '';
+  String _role = '';
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      widget.onAddStaff(Staff(name: _name, age: _age, email: _email));
+      widget.onAddStaff(Staff(
+          name: _name,
+          age: _age,
+          email: _email,
+          phone: _phone,
+          nextOfKin: _nextOfKin,
+          address: _address,
+          gender: _gender,
+          role: _role));
     }
   }
 
@@ -144,6 +187,70 @@ class _AddStaffFormState extends State<AddStaffForm> {
               },
               onChanged: (value) {
                 _email = value;
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Phone Number'),
+              keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter an phone number';
+                }
+                if (int.tryParse(value) == null) {
+                  return 'Please enter a valid phone number';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                _phone = int.parse(value);
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Next Of Kin'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a next of kin';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                _nextOfKin = value;
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Address'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a address';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                _address = value;
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Gender'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a gender';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                _gender = value;
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Role'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a role';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                _role = value;
               },
             ),
             const SizedBox(height: 20),

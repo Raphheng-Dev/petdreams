@@ -84,66 +84,64 @@ class _CasesPageState extends State<CasesPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Cases'),
-          // actions: [
-          //   IconButton(
-          //     icon: const Icon(Icons.add),
-          //     onPressed: _showAddPatientModal,
-          //   ),
-          // ],
         ),
         body: Stack(children: [
-          SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 550), // Adjust padding to accommodate the button
-                  child: DataTable(
-                    columns: const [
-                      DataColumn(label: Text('File Number')),
-                      DataColumn(label: Text('Name')),
-                      DataColumn(label: Text('Age')),
-                      DataColumn(label: Text('Weight')),
-                      DataColumn(label: Text('Specie')),
-                      DataColumn(label: Text('Breed')),
-                      DataColumn(label: Text('Sex')),
-                      DataColumn(label: Text('color')),
-                      DataColumn(label: Text('OwnersName')),
-                      DataColumn(label: Text('Address')),
-                      DataColumn(label: Text('Phone')),
-                      DataColumn(label: Text('Email')),
-                      DataColumn(label: Text('Allergies')),
-                      DataColumn(label: Text('Existing Condition')),
-                    ],
-                    rows: patients
-                        .map((patient) => DataRow(
-                              cells: [
-                                DataCell(Text(patient['fileNumber']!)),
-                                DataCell(Text(patient['name']!)),
-                                DataCell(Text(patient['age']!)),
-                                DataCell(Text(patient['weight']!)),
-                                DataCell(Text(patient['specie']!)),
-                                DataCell(Text(patient['breed']!)),
-                                DataCell(Text(patient['sex']!)),
-                                DataCell(Text(patient['color']!)),
-                                DataCell(Text(patient['ownersName']!)),
-                                DataCell(Text(patient['address']!)),
-                                DataCell(Text(patient['phone']!)),
-                                DataCell(Text(patient['email']!)),
-                                DataCell(Text(patient['allergies']!)),
-                                DataCell(Text(patient['existingCondition']!)),
-                              ],
-                              onSelectChanged: (selected) {
-                                if (selected!) {
-                                  _onRowTapped(patient);
-                                }
-                              },
-                            ))
-                        .toList(),
-                  ),
-                ),
-              )),
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context)
+                  .size
+                  .height, // Minimum height to 100% of viewport height
+              minWidth:
+                  MediaQuery.of(context).size.width, // 100% of viewport width
+            ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              // Adjust padding to accommodate the button
+              child: DataTable(
+                columns: const [
+                  DataColumn(label: Text('File Number')),
+                  DataColumn(label: Text('Name')),
+                  DataColumn(label: Text('Age')),
+                  DataColumn(label: Text('Weight')),
+                  DataColumn(label: Text('Specie')),
+                  DataColumn(label: Text('Breed')),
+                  DataColumn(label: Text('Sex')),
+                  DataColumn(label: Text('color')),
+                  DataColumn(label: Text('OwnersName')),
+                  // DataColumn(label: Text('Address')),
+                  // DataColumn(label: Text('Phone')),
+                  // DataColumn(label: Text('Email')),
+                  // DataColumn(label: Text('Allergies')),
+                  // DataColumn(label: Text('Existing Condition')),
+                ],
+                rows: patients
+                    .map((patient) => DataRow(
+                          cells: [
+                            DataCell(Text(patient['fileNumber']!)),
+                            DataCell(Text(patient['name']!)),
+                            DataCell(Text(patient['age']!)),
+                            DataCell(Text(patient['weight']!)),
+                            DataCell(Text(patient['specie']!)),
+                            DataCell(Text(patient['breed']!)),
+                            DataCell(Text(patient['sex']!)),
+                            DataCell(Text(patient['color']!)),
+                            DataCell(Text(patient['ownersName']!)),
+                            // DataCell(Text(patient['address']!)),
+                            // DataCell(Text(patient['phone']!)),
+                            // DataCell(Text(patient['email']!)),
+                            // DataCell(Text(patient['allergies']!)),
+                            // DataCell(Text(patient['existingCondition']!)),
+                          ],
+                          onSelectChanged: (selected) {
+                            if (selected!) {
+                              _onRowTapped(patient);
+                            }
+                          },
+                        ))
+                    .toList(),
+              ),
+            ),
+          ),
           Positioned(
             right: 20,
             bottom: 26,

@@ -4,6 +4,10 @@ import 'package:test_drive/pages/cases.dart';
 import '../pages/references.dart';
 import '../pages/settings.dart';
 import '../pages/staffs.dart';
+import '../pages/case_details.dart';
+
+//for mock case
+import '../models/case_model.dart';
 
 class Sidebar extends StatelessWidget {
   final Function(Widget) onSelectPage;
@@ -39,6 +43,12 @@ class Sidebar extends StatelessWidget {
             leading: const Icon(Icons.cases_outlined, color: Colors.white),
             title: const Text('Cases', style: TextStyle(color: Colors.white)),
             onTap: () => onSelectPage(const CasesPage()),
+          ),
+          ListTile(
+            leading: const Icon(Icons.cases_outlined, color: Colors.white),
+            title: const Text('Case Details',
+                style: TextStyle(color: Colors.white)),
+            onTap: () => onSelectPage(CaseDetailsPage(caseItem: (mockCase))),
           ),
           ListTile(
             leading: const Icon(Icons.settings, color: Colors.white),
@@ -85,3 +95,20 @@ class Sidebar extends StatelessWidget {
     );
   }
 }
+
+Case mockCase = Case(
+  fileNumber: 'C123456',
+  name: 'Buddy',
+  age: 5,
+  weight: '25 lbs',
+  specie: 'Dog',
+  breed: 'Golden Retriever',
+  sex: 'Male',
+  color: 'Golden',
+  ownersName: 'John Doe',
+  address: '123 Elm Street, Springfield, IL',
+  phone: 1234567890,
+  email: 'johndoe@example.com',
+  allergies: 'Peanuts',
+  existingCondition: 'None',
+);

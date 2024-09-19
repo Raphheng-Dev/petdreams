@@ -1,18 +1,18 @@
 class Case {
-  final String fileNumber;
-  final String name;
-  final int age;
-  final String weight;
-  final String specie;
-  final String breed;
-  final String sex;
-  final String color;
-  final String ownersName;
-  final String address;
-  final int phone;
-  final String email;
-  final String allergies;
-  final String existingCondition;
+  String fileNumber;
+  String name;
+  int age;
+  String weight;
+  String specie;
+  String breed;
+  String sex;
+  String color;
+  String ownersName;
+  String address;
+  int phone;
+  String email;
+  String allergies;
+  String existingCondition;
 
   Case(
       {required this.fileNumber,
